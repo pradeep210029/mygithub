@@ -1,0 +1,35 @@
+class Solution {
+  public:
+    vector <int> bottomView(Node *root) {
+        vector<int>ans;
+        if(root==NULL)return ans;
+        
+        queue<pair<Node*,int > >levdata;
+        levdata.push(make_pair(root,0));
+        map<int,int>yes;
+        
+        while(!levdata.empty())
+        {
+            pair<Node*,int > TOP=levdata.front();
+            levdata.pop();
+            Node* temp=TOP.first;
+            int hr=TOP.second;
+            //yes[hr]=temp->data;
+           
+            if(temp->left)
+            {
+              levdata.push(make_pair(temp->left,hr-1));  
+            }
+             if(temp->right)
+            {
+              levdata.push(make_pair(temp->right,hr+1));  
+            }
+          yes[hr]=temp->data;
+        }
+        for(auto i:yes)
+        {
+            ans.push_back(i.second);
+        }
+        return ans;
+    }
+};
